@@ -53,6 +53,15 @@ public class LoginControl implements ActionListener{
 		
 		if (usuario != null) {
 			
+			
+			//Comprobar si el usuario existe en la base de datos
+			String pwd = up.consultarPwdPorUser(usuario.getUsuario());
+			if (pwd != null) {
+				vReg.mostrarError("El usuario ya existe");
+			} else {
+				int res = up.registrarUsuario(usuario);
+			}
+			
 		}
 		
 	}

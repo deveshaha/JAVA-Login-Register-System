@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.dam.db.AccesoDB;
+import com.dam.model.Usuario;
 
 public class UsuarioPersistencia {
 	
@@ -58,6 +59,12 @@ public class UsuarioPersistencia {
 		
 		
 		return pwd;
+	}
+
+
+	public int registrarUsuario(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
