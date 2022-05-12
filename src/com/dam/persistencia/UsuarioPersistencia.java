@@ -7,11 +7,13 @@ import java.sql.SQLException;
 
 import com.dam.db.AccesoDB;
 import com.dam.model.Usuario;
+import com.dam.view.VLogin;
 
 public class UsuarioPersistencia {
 	
 	private AccesoDB acceso;
-	
+	VLogin vLogin;
+	 
 	public UsuarioPersistencia() {
 		acceso = new AccesoDB();
 	}
@@ -63,8 +65,36 @@ public class UsuarioPersistencia {
 
 
 	public int registrarUsuario(Usuario usuario) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		int resultado = 0;
+	
+		String query = "INSERT INTO " + UsuarioContract.NOM_TABLA + " VALUES (?,?)";
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = acceso.getConnection();
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, usuario.getUsuario());
+			pstmt.setString(2, usuario.getPwd());
+			
+			resultado = pstmt.executeUpdate();
+					
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+				try {
+					if (pstmt != null) pstmt.close();
+					if (con != null) con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		
+		return resultado;
 	}
-
 }

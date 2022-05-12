@@ -120,7 +120,6 @@ public class VRegistro extends JFrame {
 					mostrarError("Las contraseñas no coincidan");
 				}
 				user = new Usuario(nomUsuario, pwd);
-				mostrarError("Registro Exitoso");
 			}
 		}
 
@@ -129,7 +128,34 @@ public class VRegistro extends JFrame {
 		
 	}
 	
+	private String validarPassword(String pwd, String nomUsuario) {
+		
+		String error = "";
+		
+		if (pwd.isBlank()) {
+			error = "Debe introducir la contraseña";
+		} else if (pwd.length() < 8 || pwd.length() > 20) {
+			error = "La contraseña debe tener entre 8 y 20 caracteres";
+		} else if (pwd.equals(nomUsuario)) {
+			error = "El nombre de usuario y la coontraseña no pueden ser los mismos";	
+		} else if (!pwd.matches(".*[A-Z].*")) {
+			error = "La contraseña debe tener al menos una mayuscula";	
+		} else if (!pwd.matches(".*[0-9].*")) {
+			error = "La contraseña debe tener al menos un numero";
+		} else if (pwd.matches(".*[&+_*].*")) {
+			error = "La contraseña no puede contener caracteres distintos de letras, numeros y &,+,_,* ";
+		}
+		
+		return error;
+
+	}
+
 	public void mostrarError(String mensaje) {
 		JOptionPane.showMessageDialog(this , mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+	}
+
+	public void mostrarInformacion(String mensaje) {
+		JOptionPane.showMessageDialog(this, mensaje, "Informacion", JOptionPane.INFORMATION_MESSAGE);
+		
 	}
 }

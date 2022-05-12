@@ -52,14 +52,20 @@ public class LoginControl implements ActionListener{
 		Usuario usuario = vReg.obtenerUsuario();
 		
 		if (usuario != null) {
-			
-			
 			//Comprobar si el usuario existe en la base de datos
 			String pwd = up.consultarPwdPorUser(usuario.getUsuario());
 			if (pwd != null) {
 				vReg.mostrarError("El usuario ya existe");
 			} else {
 				int res = up.registrarUsuario(usuario);
+				
+				if (res == 1) {
+					vReg.mostrarInformacion("Registro exitoso");
+					volverLogin();
+					vLogin.cargarUsuario(usuario.getUsuario());
+				} else {
+					vReg.mostrarError("No se ha podido registrar el usuario");
+				}
 			}
 			
 		}
@@ -71,10 +77,7 @@ public class LoginControl implements ActionListener{
 	private void volverLogin() {
 		vReg.dispose();
 		vLogin.hacerVisible();
-		
 	}
-
-
 
 	private void abrirRegistro() {
 		vLogin.dispose();

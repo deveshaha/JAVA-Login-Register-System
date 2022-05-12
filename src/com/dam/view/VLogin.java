@@ -118,7 +118,7 @@ public class VLogin extends JFrame {
 		
 		String error = "";
 		
-		if (pwd.isEmpty()) {
+		if (pwd.isBlank()) {
 			error = "Debe introducir la contraseña";
 		} else if (pwd.length() < 8 || pwd.length() > 20) {
 			error = "La contraseña debe tener entre 8 y 20 caracteres";
@@ -137,5 +137,10 @@ public class VLogin extends JFrame {
 
 	public void mostrarError(String mensaje) {
 		JOptionPane.showMessageDialog(this , mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+	}
+
+	public void cargarUsuario(String nomUsuario) {
+		txtUsuario.setText(nomUsuario);
+		
 	}
 }
